@@ -1,6 +1,6 @@
 <?php
 include 'Voip/InfoPage.php';
 
-$page = new InfoPage();
+$page = new InfoPage(false);
 $page->display();
 ?>
