@@ -1,6 +1,7 @@
 <?php
 require_once 'Ice.php';
-require_once 'Voip/Murmur.php';
+require_once 'Murmur.php';
+require_once 'Config.php';
 
 class RyftServer {
 
@@ -10,7 +11,7 @@ class RyftServer {
             $initData->properties = Ice_createProperties();
             $initData->properties->setProperty('Ice.ImplicitContext', 'Shared');
             $ICE = Ice_initialize($initData);
-            $meta = Murmur_MetaPrxHelper::checkedCast($ICE->stringToProxy('Meta:tcp -h 127.0.0.1 -p 6502'));
+            $meta = Murmur_MetaPrxHelper::checkedCast($ICE->stringToProxy(ICE_PROXY));
         } catch (Exception $e) {
             print 'Mumble server not found';
             exit;

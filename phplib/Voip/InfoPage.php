@@ -1,12 +1,12 @@
 <?php
 require_once 'Ice.php';
-require_once 'Voip/Murmur.php';
-require_once 'Voip/RyftServer.php';
+require_once 'Murmur.php';
+require_once 'Server.php';
 require_once 'Twig/Autoloader.php';
 
 class InfoPage {
 
-    function __construct() {
+    function __construct($authenticated = false) {
         Twig_Autoloader::register();
         $ryftServer = new RyftServer();
         $this->server = $ryftServer->getServer();
@@ -15,9 +15,9 @@ class InfoPage {
         $this->uptimeStr        = $this->getUptime();
         $this->lastActivityStr  = $this->getLastActivity();
 
-        $loader = new Twig_Loader_Filesystem($template_dir);
+        $loader = new Twig_Loader_Filesystem(TWIG_TEMPLATE_DIR);
         $this->twig = new Twig_Environment($loader, array(
-            'cache'         => $cache_dir,
+            'cache'         => TWIG_CACHE_DIR,
             'autoescape'    => false,
             'auto_reload'   => true,
         ));
