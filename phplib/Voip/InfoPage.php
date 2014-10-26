@@ -1,6 +1,4 @@
 <?php
-require_once 'Ice.php';
-require_once 'Murmur.php';
 require_once 'Server.php';
 require_once 'Twig/Autoloader.php';
 
