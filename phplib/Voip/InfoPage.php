@@ -1,15 +1,15 @@
 <?php
-require_once 'Server.php';
+require_once 'MumbleServer.php';
 require_once 'Twig/Autoloader.php';
 
 class InfoPage {
 
     function __construct($authenticated = false) {
         Twig_Autoloader::register();
-        $ryftServer = new RyftServer();
-        $this->server = $ryftServer->getServer();
+        $mumble = new MumbleServer();
+        $this->server = $mumble->getServer();
 
-        $this->versionStr       = $ryftServer->getVersion();
+        $this->versionStr       = $mumble->getVersion();
         $this->uptimeStr        = $this->getUptime();
         $this->lastActivityStr  = $this->getLastActivity();
 

@@ -3,7 +3,7 @@ require_once 'Ice.php';
 require_once 'Murmur.php';
 require_once 'Config.php';
 
-class RyftServer {
+class MumbleServer {
 
     function __construct() {
         try {

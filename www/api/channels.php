@@ -1,8 +1,8 @@
 <?php
-require_once 'Voip/Server.php';
+require_once 'Voip/MumbleServer.php';
 
-$ryftServer = new RyftServer();
-$server     = $ryftServer->getServer();
+$mumble     = new MumbleServer();
+$server     = $mumble->getServer();
 
 $channels   = $server->getChannels();
 $users      = $server->getUsers();
