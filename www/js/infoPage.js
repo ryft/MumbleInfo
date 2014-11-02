@@ -4,11 +4,8 @@ $(function () {
 
             if (data.action == 'select_node') {
                 var node = data.node.original;
-                if (node.type == 'channel') {
-                    $('#channelInfo').load('api/channelInfo.php?id=' + node.id);
-                } else if (node.type == 'user') {
-                    $('#channelInfo').load('api/userInfo.php?name=' + node.text);
-                }
+                var id = (node.type == 'channel') ? node.id : node.text;
+                $('#channelInfo').load('api/details.php?type=' + node.type + '&id=' + id);
             }
 
     })  .jstree({
