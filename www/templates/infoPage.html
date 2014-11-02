@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mumble on voip.ryft.uk</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        
+        <script src="js/jstree/jstree.min.js"></script>
+        <link rel="stylesheet" href="js/jstree/themes/default/style.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+        <script src="js/infoPage.js"></script>
+        
+        <style type="text/css">
+            img {
+                height: 50px;
+                width: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Mumble Information</h1>
+
+            <h2>Server Details</h2>
+            <table class="table"><tbody>
+                <tr>
+                    <th>Version</th>
+                    <td>{{ version }}</td>
+                </tr>
+                <tr>
+                    <th>Uptime</th>
+                    <td>{{ uptime }}</td>
+                </tr>
+                <tr>
+                    <th>Last activity</th>
+                    <td>{{ last_activity | date }}</td>
+                </tr>
+            </tbody></table>
+
+            <h2>Channel Viewer</h2>
+            <div id="channelViewer"></div>
+
+        </div>
+    </body>
+</html>
