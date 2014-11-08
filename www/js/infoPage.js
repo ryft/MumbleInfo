@@ -9,6 +9,9 @@ app.controller('detailsController', function($scope, $http) {
 });
 
 app.controller('treeController', function($scope, $http) {
+    var ipv4Filter = function(input) {
+        return input.slice(-4).join('.');
+    };
     var userCols = [
         { name: "name",         title: "User name" },
         { name: "release",      title: "Client version" },
@@ -16,11 +19,12 @@ app.controller('treeController', function($scope, $http) {
         { name: "osversion",    title: "OS version" },
         { name: "onlinesecs",   title: "Online time" },
         { name: "idlesecs",     title: "Idle time" },
+        { name: "address",      title: "IP address",    filter: ipv4Filter },
     ];
     var channelCols = [
         { name: "name",         title: "Channel name" },
         { name: "id",           title: "Channel ID" },
-        { name: "description",  title: "Description",   decode: 1 },
+        { name: "description",  title: "Description" },
     ];
 
     $scope.summary = 'Select a user or channel for details';
@@ -37,9 +41,10 @@ app.controller('treeController', function($scope, $http) {
                         $scope.info = [];
                         var cols = (node.type == 'user') ? userCols : channelCols;
                         angular.forEach(cols, function(item) {
+                            var val = response[item.name];
                             this.push({
                                 title: item.title,
-                                value: response[item.name],
+                                value: (item.filter) ? item.filter(val) : val,
                             });
                         }, $scope.info);
                     }
