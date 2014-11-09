@@ -23,7 +23,7 @@
 
         $node = ($type == 'channel')
             ? getChannel($server, $id)
-            : getUser($server, $name);
+            : getUser($server, $id);
 
     } else {
         $node = array();
