@@ -23,6 +23,10 @@
 
             <h2>Server Details</h2>
             <div ng-controller="detailsController">
+                <p class="bg-danger" style="padding: 15px; border-radius: 10px;" ng-if="!server.available">
+                    Server unavailable! Please check the API configuration.
+                </p>
+
                 <table class="table"><tbody>
                     <tr>
                         <th>Version</th>
@@ -34,7 +38,7 @@
                     </tr>
                     <tr>
                         <th>Last activity</th>
-                        <td>{{ server.last_activity * 1000 | date:'d MMM yyyy H:mm' }}</td>
+                        <td><span ng-if="server.last_activity">{{ server.last_activity * 1000 | date:'d MMMM yyyy H:mm' }}</span></td>
                     </tr>
                 </tbody></table>
             </div>

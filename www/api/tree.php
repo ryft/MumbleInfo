@@ -1,10 +1,6 @@
 <?php
     require_once 'MumbleServer.php';
 
-    $mumble = new MumbleServer();
-    $server = $mumble->getServer();
-    $tree   = $server->getTree();
-
     function format_tree($tree) {
         $channel    = $tree->c;
         $subtrees   = $tree->children;
@@ -34,7 +30,20 @@
         );
     }
 
+    $mumble = new MumbleServer();
+
+    if ($mumble->isAvailable()) {
+        $server = $mumble->getServer();
+        $tree   = format_tree($server->getTree());
+
+    } else {
+        $tree   = array(
+            'icon'  => 'fa fa-power-off',
+            'state' => array( 'disabled' => true ),
+        );
+    }
+
     header('Content-Type: application/json');
-    echo json_encode(format_tree($tree));
+    echo json_encode($tree);
 ?>
 

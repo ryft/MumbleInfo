@@ -1,9 +1,6 @@
 <?php
     require_once 'MumbleServer.php';
 
-    $mumble = new MumbleServer();
-    $server = $mumble->getServer();
-
     function pl($count, $string) {
         $ret = $count . " " . $string;
         return ($count == 0) ? ''
@@ -32,11 +29,23 @@
         return $log[0]->timestamp;
     }
 
-    $details = array(
-        'version'       => $mumble->getVersion(),
-        'uptime'        => getUptime($server),
-        'last_activity' => getLastActivity($server),
-    );
+    $mumble = new MumbleServer();
+
+    if ($mumble->isAvailable()) {
+        $server = $mumble->getServer();
+
+        $details = array(
+            'available'     => true,
+            'version'       => $mumble->getVersion(),
+            'uptime'        => getUptime($server),
+            'last_activity' => getLastActivity($server),
+        );
+
+    } else {
+        $details = array(
+            'available'     => false,
+        );
+    }
 
     header('Content-Type: application/json');
     echo json_encode($details);
