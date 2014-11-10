@@ -1,6 +1,6 @@
-var app = angular.module('MumbleInfo', ['ngSanitize']);
+var app = angular.module('MumbleInfo', ['ngSanitize', 'infoFilters']);
 
-app.controller('detailsController', function($scope, $http) {
+app.controller('detailsController', function($scope, $filter, $http) {
     $http.get('/api/details.php')
         .success(function(response) {
             $scope.server = response;
@@ -8,23 +8,23 @@ app.controller('detailsController', function($scope, $http) {
     );
 });
 
-app.controller('treeController', function($scope, $http) {
+app.controller('treeController', function($scope, $filter, $http) {
     var ipv4Filter = function(input) {
         return input.slice(-4).join('.');
     };
     var userKeys = [
-        { name: "name",         title: "User name" },
-        { name: "release",      title: "Client version" },
-        { name: "os",           title: "Operating system" },
-        { name: "osversion",    title: "OS version" },
-        { name: "onlinesecs",   title: "Online time" },
-        { name: "idlesecs",     title: "Idle time" },
-        { name: "address",      title: "IP address",    filter: ipv4Filter },
+        { name: 'name',         title: 'User name' },
+        { name: 'release',      title: 'Client version' },
+        { name: 'os',           title: 'Operating system' },
+        { name: 'osversion',    title: 'OS version' },
+        { name: 'onlinesecs',   title: 'Online time',   filter: 'interval' },
+        { name: 'idlesecs',     title: 'Last activity', filter: 'ago' },
+        { name: 'address',      title: 'IP address',    filter: 'ipv4' },
     ];
     var channelKeys = [
-        { name: "name",         title: "Channel name" },
-        { name: "id",           title: "Channel ID" },
-        { name: "description",  title: "Description" },
+        { name: 'name',         title: 'Channel name' },
+        { name: 'id',           title: 'Channel ID' },
+        { name: 'description',  title: 'Description' },
     ];
 
     $scope.summary = 'Select a user or channel for details';
@@ -44,13 +44,10 @@ app.controller('treeController', function($scope, $http) {
 
                             // If a filter is defined, apply it now
                             var val = response[item.name];
-                            if (typeof item.filter !== 'undefined' && typeof val !== 'undefined') {
-                                val = item.filter(val);
-                            }
 
                             this.push({
                                 title: item.title,
-                                value: val,
+                                value: $filter(item.filter || 'identity')(val),
                             });
 
                         }, $scope.info);
