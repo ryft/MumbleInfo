@@ -12,7 +12,7 @@ app.controller('treeController', function($scope, $http) {
     var ipv4Filter = function(input) {
         return input.slice(-4).join('.');
     };
-    var userCols = [
+    var userKeys = [
         { name: "name",         title: "User name" },
         { name: "release",      title: "Client version" },
         { name: "os",           title: "Operating system" },
@@ -21,7 +21,7 @@ app.controller('treeController', function($scope, $http) {
         { name: "idlesecs",     title: "Idle time" },
         { name: "address",      title: "IP address",    filter: ipv4Filter },
     ];
-    var channelCols = [
+    var channelKeys = [
         { name: "name",         title: "Channel name" },
         { name: "id",           title: "Channel ID" },
         { name: "description",  title: "Description" },
@@ -32,20 +32,27 @@ app.controller('treeController', function($scope, $http) {
         .on('changed.jstree', function (e, data) {
 
             if (data.action == 'select_node') {
-                $scope.summary = '';
-
                 var node = data.node.original;
-                var id = (node.type == 'user') ? node.text : node.id;
-                $http.get('/api/node.php?type=' + node.type + '&id=' + id)
+                $http.get('/api/node.php?type=' + node.type + '&id=' + node.id)
                     .success(function(response) {
-                        $scope.info = [];
-                        var cols = (node.type == 'user') ? userCols : channelCols;
-                        angular.forEach(cols, function(item) {
+                        $scope.summary  = '';
+                        $scope.info     = [];
+
+                        // Select data keys depending on node type
+                        var keys = (node.type == 'user') ? userKeys : channelKeys;
+                        angular.forEach(keys, function(item) {
+
+                            // If a filter is defined, apply it now
                             var val = response[item.name];
+                            if (typeof item.filter !== 'undefined' && typeof val !== 'undefined') {
+                                val = item.filter(val);
+                            }
+
                             this.push({
                                 title: item.title,
-                                value: (item.filter) ? item.filter(val) : val,
+                                value: val,
                             });
+
                         }, $scope.info);
                     }
                 );

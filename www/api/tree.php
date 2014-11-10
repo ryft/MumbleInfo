@@ -20,10 +20,9 @@
     }
 
     function format_user($user) {
-        // Ensure user IDs can't be numberic so they can't conflict with channels
-        // Anonymous users all have id -1 but name uniqueness is enforced by mumble
+        // Ensure session IDs aren't numberic so they can't conflict with channels
         return array(
-            'id'    => 'user-' . $user->name,
+            'id'    => 'u'.$user->session,
             'text'  => $user->name,
             'icon'  => 'fa fa-user',
             'type'  => 'user',
@@ -43,7 +42,7 @@
         );
     }
 
-    header('Content-Type: application/json');
+    header('Content-Type: application/json; charset=utf-8');
     echo json_encode($tree);
 ?>
 
