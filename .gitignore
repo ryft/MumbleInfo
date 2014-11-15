@@ -1,4 +1,2 @@
-phplib/Twig
-phplib/Voip/Murmur.*
+phplib/Murmur.*
 
-www/js/jstree

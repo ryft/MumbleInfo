@@ -12,12 +12,17 @@ class MumbleServer {
             $initData->properties->setProperty('Ice.ImplicitContext', 'Shared');
             $ICE = Ice_initialize($initData);
             $meta = Murmur_MetaPrxHelper::checkedCast($ICE->stringToProxy(ICE_PROXY));
+            $meta->getVersion($a, $b, $c, $this->versionStr);
+            $this->server = $meta->getAllServers()[0];
+            $this->available = true;
+
         } catch (Exception $e) {
-            print 'Mumble server not found';
-            exit;
+            $this->available = false;
         }
-        $meta->getVersion($a, $b, $c, $this->versionStr);
-        $this->server = $meta->getAllServers()[0];
+    }
+
+    function isAvailable() {
+        return $this->available;
     }
 
     function getServer() {
