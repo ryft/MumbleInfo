@@ -26,24 +26,18 @@
 
             <h2>Server Details</h2>
             <div ng-controller="detailsController">
-                <p class="bg-danger banner" ng-if="!server.available">
+                <p class="bg-danger banner" ng-if="!available">
                     Server unavailable! Please check the API configuration.
                 </p>
 
-                <table class="table"><tbody>
-                    <tr>
-                        <th>Version</th>
-                        <td>{{ server.version }}</td>
-                    </tr>
-                    <tr>
-                        <th>Uptime</th>
-                        <td>{{ server.uptime | interval }}</td>
-                    </tr>
-                    <tr>
-                        <th>Last activity</th>
-                        <td><span ng-if="server.last_activity">{{ server.last_activity | date }}</span></td>
-                    </tr>
-                </tbody></table>
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="d in details">
+                            <th>{{ d.title }}</th>
+                            <td><span ng-if="d.value">{{ d.value }}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <h2>Channel Viewer</h2>
