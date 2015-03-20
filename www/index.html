@@ -9,16 +9,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-        <link rel="stylesheet" href="css/jstree.min.css">
+        <link rel="stylesheet" href="css/jsTree.min.css">
         <link rel="stylesheet" href="css/infoPage.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
         
-        <script src="js/jstree.min.js"></script>
+        <script src="js/jsTree.min.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/moment.min.js"></script>
         <script src="js/sanitize.js"></script>
         <script src="js/filters.js"></script>
         <script src="js/infoPage.js"></script>
+        <script src="js/jsTree.directive.js"></script>
     </head>
     <body>
         <div class="container">
@@ -42,7 +43,9 @@
 
             <h2>Channel Viewer</h2>
             <div class="row" ng-controller="treeController">
-                <div id="treeView" class="col-md-7"></div>
+                <div class="col-md-7">
+                    <js-tree id="treeView" tree-data="json" tree-src="/api/tree.php" tree-events="ready:onTreeReady;"></js-tree>
+                </div>
                 <div id="treeInfo" class="col-md-5">
                     <p ng-bind="summary"></p>
                     <dl class="dl-horizontal">
@@ -55,3 +58,4 @@
         </div>
     </body>
 </html>
+

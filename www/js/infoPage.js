@@ -1,4 +1,4 @@
-var app = angular.module('MumbleInfo', ['ngSanitize', 'infoFilters']);
+var app = angular.module('MumbleInfo', ['ngSanitize', 'infoFilters', 'jsTree.directive']);
 
 app.controller('detailsController', function($scope, $filter, $http) {
     var detailKeys = [
@@ -44,9 +44,8 @@ app.controller('treeController', function($scope, $filter, $http) {
     ];
 
     $scope.summary = 'Select a user or channel for details';
-    $('#treeView')
-        .on('changed.jstree', function (e, data) {
-
+    $scope.onTreeReady = function(e, data) {
+        $('#treeView').on('changed.jstree', function (e, data) {
             if (data.action == 'select_node') {
                 var node = data.node.original;
                 $http.get('/api/node.php?type=' + node.type + '&id=' + node.id)
@@ -67,10 +66,7 @@ app.controller('treeController', function($scope, $filter, $http) {
                     }
                 );
             }
-
-    })  .jstree({
-        'core': {
-            'data': { 'url': '/api/tree.php' }
-    }});
+        });
+    };
 });
 

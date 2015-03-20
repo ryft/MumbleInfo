@@ -20,7 +20,7 @@
     }
 
     function format_user($user) {
-        // Ensure session IDs aren't numberic so they can't conflict with channels
+        // Ensure session IDs aren't numeric so they can't conflict with channels
         return array(
             'id'    => 'u'.$user->session,
             'text'  => $user->name,
