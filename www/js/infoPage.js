@@ -65,6 +65,8 @@ app.controller('treeController', function($scope, $filter, $http) {
                         }, $scope.info);
                     }
                 );
+            } else {
+                console.log("Unhandled action " + data.action);
             }
         });
     };

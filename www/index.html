@@ -44,7 +44,7 @@
             <h2>Channel Viewer</h2>
             <div class="row" ng-controller="treeController">
                 <div class="col-md-7">
-                    <js-tree id="treeView" tree-data="json" tree-src="/api/tree.php" tree-events="ready:onTreeReady;"></js-tree>
+                    <js-tree id="treeView" tree-ajax="/api/tree.php" tree-events="ready:onTreeReady;" tree-plugins="dnd"></js-tree>
                 </div>
                 <div id="treeInfo" class="col-md-5">
                     <p ng-bind="summary"></p>
